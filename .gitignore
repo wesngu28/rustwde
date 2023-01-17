@@ -1,2 +1,4 @@
 /target
 .env
+assets/json/old
+assets/wordcounts/old

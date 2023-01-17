@@ -1,2 +1,2 @@
-pub mod techs;
-pub mod mongo;
+pub mod connect;
+pub mod mongo_client;
