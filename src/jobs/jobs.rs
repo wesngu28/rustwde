@@ -1,5 +1,8 @@
-use scraper::{Html, Selector };
-use reqwest::{Client, header::{HeaderMap, HeaderValue}};
+use reqwest::{
+    header::{HeaderMap, HeaderValue},
+    Client,
+};
+use scraper::{Html, Selector};
 
 pub async fn get_jobs(keywords: String) -> Result<String, Box<dyn std::error::Error>> {
     let linkedin_client = Client::new();
@@ -25,10 +28,14 @@ pub async fn get_jobs(keywords: String) -> Result<String, Box<dyn std::error::Er
         match element.value().attr("content") {
             Some(content) => {
                 if content.contains("new") {
-                    return Ok(content.to_string())
+                    return Ok(content.to_string());
                 }
             }
-            None => return Ok(String::from("No listings found, no content meta tag found."))
+            None => {
+                return Ok(String::from(
+                    "No listings found, no content meta tag found.",
+                ))
+            }
         }
     }
 

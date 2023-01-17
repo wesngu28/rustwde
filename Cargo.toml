@@ -3,18 +3,27 @@ name = "testy"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 tokio = { version = "1", features = ["full"] }
+
+# for scraper
 reqwest = { version = "0.11", features = ["blocking", "json"] }
 scraper = "0.14.0"
 rusqlite = { version = "0.28.0", features = ["bundled"] }
+axum-macros = "0.3.1"
+
+# for mongo db
 mongodb = "2.3.1"
 futures = "0.3"
-axum = "0.6.2"
+
+# for api
+axum = { version = "0.6.2", features = ["headers"] }
+tower-http = { version = "0.3.5", features = ["cors"] }
+
+# for json serialization, deserialization, writing to the sqlite database
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tower-http = { version = "0.3.5", features = ["cors"] }
 csv = "1.1.6"
+
+# environmental variables
 dotenvy = "0.15.6"
