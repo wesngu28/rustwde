@@ -54,7 +54,12 @@ async fn get_all_tweets(
                 .unwrap()
         }
     };
-
+    if cursor.is_none() {
+        return Response::builder()
+            .status(404)
+            .body(Body::from(format!("Could not find {} on server.", &tech)))
+            .unwrap()
+    }
     // If something is found, it should always be valid
     match serde_json::to_string(&cursor) {
         Ok(body) => {
