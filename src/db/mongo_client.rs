@@ -1,10 +1,7 @@
-use std::fs;
-
 use super::connect;
 use dotenvy::dotenv;
-use mongodb::{bson::{doc, self}, bson::Document, options::ClientOptions, Client};
+use mongodb::{bson::{doc}, options::ClientOptions, Client};
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TechTweetStruct {
