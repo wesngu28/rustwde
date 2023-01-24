@@ -7,10 +7,10 @@ use axum::{
     Router,
 };
 
-use mongodb::{bson::doc, bson::Document, Collection};
+use mongodb::{bson::{doc}, bson::{Document}, Collection};
 use tower_http::cors::{Any, CorsLayer};
 
-use crate::{db::mongo_client::mongos, jobs::jobs::get_jobs};
+use crate::{db::mongo_client::mongos, jobs::{jobs::get_jobs, github::get_github_stars}};
 
 pub async fn create_api() -> Router {
     let client = mongos().await;
@@ -60,6 +60,10 @@ async fn get_all_tweets(
             .body(Body::from(format!("Could not find {} on server.", &tech)))
             .unwrap()
     }
+    let mut cursor = cursor.unwrap();
+    let stars = get_github_stars(&cursor).await;
+    cursor.insert("stars", stars);
+
     // If something is found, it should always be valid
     match serde_json::to_string(&cursor) {
         Ok(body) => {
